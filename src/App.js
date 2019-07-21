@@ -3,10 +3,7 @@ import "./App.css";
 import "antd/dist/antd.css";
 import produce from 'immer'
 import Builder from './builder'
-import columnCreator, { renederCell } from './builder/columnCreator';
-import Util from './builder/util';
-
-
+import { renederCell } from './builder/columnCreator';
 
 const rows = [
   [
@@ -26,7 +23,7 @@ const rows = [
       },
       style: {},
       column: renederCell,
-      columnProps: [{style:{height:"600px"}},{name: 'ACCOUNT_NO'}],
+      columnProps: [{style:{height:"120px"}},{name: 'ACCOUNT_NO', placeholder: 'type here'}],
       ui: {
         appendBefore: {},
         appendAfter: {},
@@ -52,7 +49,7 @@ const rows = [
       },
       style: {},
       column: renederCell,
-      columnProps: [{style:{height:"160px"}},{name: 'DUMMY_NAME'}],
+      columnProps: [{style:{height:"160px"}},{name: 'DUMMY_NAME', placeholder: 'type here'}],
       ui: {
         appendBefore: {},
         appendAfter: {},

@@ -23,6 +23,10 @@ const rows = [
       },
       style: {},
       column: renederCell,
+      component: {
+        name:"ACCOUNT_NO",
+        dest:"src/components/columnUI.js"
+      },
       columnProps: [{style:{height:"120px"}},{name: 'ACCOUNT_NO', placeholder: 'type here'}],
       ui: {
         appendBefore: {},
@@ -49,6 +53,10 @@ const rows = [
       },
       style: {},
       column: renederCell,
+      component: {
+        name:"DUMMY_NAME",
+        dest:"src/components/columnUI.js"
+      },
       columnProps: [{style:{height:"160px"}},{name: 'DUMMY_NAME', placeholder: 'type here'}],
       ui: {
         appendBefore: {},

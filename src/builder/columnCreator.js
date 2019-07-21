@@ -3,7 +3,7 @@ import Util from './util'
 
 const columnCreator = function column(arg) {
     const { col, props, ...rest } = arg;
-    return <React.Fragment><p>hi</p>{col(props,rest)}</React.Fragment>;
+    return <React.Fragment>{col(props,rest)}</React.Fragment>;
 };
 
 export function renederCell(column, handlers, props, setstate, state){ 

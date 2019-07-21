@@ -5,6 +5,8 @@ function ColumnUI(props,rest) {
     const { name } = props;
     const { handlers } = rest;
     const { FormContext, FormState } = Context;
+    console.log("hhhh", handlers)
+    console.log("pppp", props)
     return (
       <FormContext.Consumer >
         {

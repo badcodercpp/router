@@ -20,13 +20,16 @@ function getModuleId(name) {
 }
 
 function createUi(state, tempInit) {
-    const Component = (state[tempInit] === Loader )?(lazy(() => import(state[tempInit]))):state[tempInit]
+    const Component = state[tempInit];
     return function (props,rest) {
-        return (
-            <Suspense fallback={<Loader />}>
-                <Component {...props} {...rest['handlers']} />
-            </Suspense>
-        )
+        if (Component) {
+            return (
+                <Suspense fallback={<Loader />}>
+                    <Component {...props} {...rest['handlers']} />
+                </Suspense>
+            )
+        }
+        return null;
     }
 }
 
@@ -42,7 +45,6 @@ function Builder({rows = [[]], formState = {}}) {
         <React.Fragment>
             <Context.FormContext.Provider value={setstate} >
                 <Context.FormState.Provider value={state} >
-                    <h1>hi builder</h1>
                     {rows.map(co => {
                         if (co) {
                             return co.map(ui => {
@@ -56,12 +58,12 @@ function Builder({rows = [[]], formState = {}}) {
                                         }))
                                     }
                                     const UiFunction = createUi(state, tempInit);
-                                    if (state[tempInit] === Loader) {
+                                    if (state[tempInit] === Loader && !state[`${tempInit}_Loaded_True`]) {
                                         import(`../../${dest}`).then(module=>{
-                                            console.log(module)
                                             if(state[tempInit] === Loader){
                                                 setstate(produce(state, draft => {
                                                     draft[tempInit] = module.default;
+                                                    draft[`${tempInit}_Loaded_True`] = true;
                                                 }))
                                             }
                                         })
@@ -81,4 +83,4 @@ function Builder({rows = [[]], formState = {}}) {
     );
 };
 
-export default Builder;
+export default React.memo(Builder);

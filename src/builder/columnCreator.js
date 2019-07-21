@@ -12,4 +12,4 @@ export function renederCell(column, handlers, props, setstate, state){
     return columnCreator({ col:column, handlers: newHandlers, props });
 }
 
-export default columnCreator;
+export default React.memo(columnCreator);

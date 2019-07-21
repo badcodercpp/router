@@ -1,12 +1,15 @@
 import React from 'react';
-import Context from '../context'
+import Context from '../context';
+import _isEqual from 'lodash/isEqual';
+
+function arePropsEqual(prevProps, nextProps) {
+    return _isEqual(prevProps, nextProps);
+}
 
 function ColumnUI(props,rest) {
     const { name } = props;
     const { handlers } = rest;
     const { FormContext, FormState } = Context;
-    console.log("hhhh", handlers)
-    console.log("pppp", props)
     return (
       <FormContext.Consumer >
         {
@@ -24,4 +27,4 @@ function ColumnUI(props,rest) {
     )
   }
 
-export default ColumnUI;
+export default React.memo(ColumnUI, arePropsEqual);

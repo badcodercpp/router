@@ -42,43 +42,55 @@ function Builder({rows = [[]], formState = {}}) {
     const [state, setstate] = useState(tempFormState);
     
     return (
-        <React.Fragment>
+        <div>
             <Context.FormContext.Provider value={setstate} >
                 <Context.FormState.Provider value={state} >
-                    {rows.map(co => {
+                    {rows.map((co, index) => {
                         if (co) {
-                            return co.map(ui => {
-                                if (!_isEmpty(ui)) {
-                                    const { column, handlers, columnProps: props, component: destination } = ui;
-                                    const { name, dest } = destination;
-                                    const tempInit = getModuleId(name);
-                                    if (!state[tempInit]) {
-                                        setstate(produce(state, draft => {
-                                            draft[tempInit] = Loader;
-                                        }))
-                                    }
-                                    const UiFunction = createUi(state, tempInit);
-                                    if (state[tempInit] === Loader && !state[`${tempInit}_Loaded_True`]) {
-                                        import(`../../${dest}`).then(module=>{
-                                            if(state[tempInit] === Loader){
-                                                setstate(produce(state, draft => {
-                                                    draft[tempInit] = module.default;
-                                                    draft[`${tempInit}_Loaded_True`] = true;
-                                                }))
+                            return (
+                                <div className="rows" key={index} style={{display:"flex", justifyContent:"center", alignItems:"center"}} >
+                                    {
+                                        co.map((ui, uiIndex) => {
+                                            if (!_isEmpty(ui)) {
+                                                const { column, handlers, columnProps: props, component: destination } = ui;
+                                                const { name, dest } = destination;
+                                                const tempInit = getModuleId(name);
+                                                if (!state[tempInit]) {
+                                                    setstate(produce(state, draft => {
+                                                        draft[tempInit] = Loader;
+                                                    }))
+                                                }
+                                                const UiFunction = createUi(state, tempInit);
+                                                if (state[tempInit] === Loader && !state[`${tempInit}_Loaded_True`]) {
+                                                    import(`../../${dest}`).then(module=>{
+                                                        if(state[tempInit] === Loader){
+                                                            setstate(produce(state, draft => {
+                                                                draft[tempInit] = module.default;
+                                                                draft[`${tempInit}_Loaded_True`] = true;
+                                                            }))
+                                                        }
+                                                    })
+                                                }
+                                                
+                                                return (
+                                                    <div className="columns" key={uiIndex} >
+                                                        {
+                                                            column(UiFunction, handlers, Util.convertArrayToProps(props), setstate, state)
+                                                        }
+                                                    </div>
+                                                );
                                             }
+                                            return null;
                                         })
                                     }
-                                    
-                                    return column(UiFunction, handlers, Util.convertArrayToProps(props), setstate, state);
-                                }
-                                return null;
-                            });
+                                </div>
+                            )
                         }
                         return null
                     })}
                 </Context.FormState.Provider>
             </Context.FormContext.Provider>
-        </React.Fragment>
+        </div>
         
     );
 };

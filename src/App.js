@@ -1,13 +1,20 @@
 import React from "react";
 import "./App.css";
 import "antd/dist/antd.css";
-import Builder from './builder'
-import rows from './mock/mockApp';
+import AppRouter from './router/router';
+import appRoutes from './router/routeConfig';
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './redux/reducers'
+
+const store = createStore(reducer)
 
 function App() {
   return (
     <div className="App">
-      <Builder rows={rows} />
+      <Provider store={store} >
+        <AppRouter routes={appRoutes} />
+      </Provider>
     </div>
   );
 }

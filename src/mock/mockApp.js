@@ -82,7 +82,7 @@ const rows = [
           name:"ACCOUNT_NO",
           dest:"src/components/columnUI.js"
         },
-        columnProps: [{style:{height:"120px"}},{name: 'ACCOUNT_NO', placeholder: 'type here'}],
+        columnProps: [{style:{height:"120px"}},{name: 'ACCOUNT_NO_COPY', placeholder: 'type here'}],
         ui: {
           appendBefore: {},
           appendAfter: {},
@@ -112,7 +112,7 @@ const rows = [
           name:"DUMMY_NAME",
           dest:"src/components/columnUI.js"
         },
-        columnProps: [{style:{height:"160px"}},{name: 'DUMMY_NAME', placeholder: 'type here'}],
+        columnProps: [{style:{height:"160px"}},{name: 'DUMMY_NAME_COPY', placeholder: 'type here'}],
         ui: {
           appendBefore: {},
           appendAfter: {},

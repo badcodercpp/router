@@ -1,6 +1,7 @@
 import React from 'react';
 import Context from '../context';
 import _isEqual from 'lodash/isEqual';
+import { useDispatch, connect, useSelector } from 'react-redux'
 
 function arePropsEqual(prevProps, nextProps) {
     return _isEqual(prevProps, nextProps);
@@ -10,6 +11,8 @@ function ColumnUI(props,rest) {
     const { name } = props;
     const { handlers } = rest;
     const { FormContext, FormState } = Context;
+    // const dispatch = useDispatch();
+    // const reduxState = useSelector(state => state)
     return (
       <FormContext.Consumer >
         {
@@ -27,4 +30,9 @@ function ColumnUI(props,rest) {
     )
   }
 
-export default React.memo(ColumnUI, arePropsEqual);
+  const MemoComponent = React.memo(ColumnUI, arePropsEqual);
+
+export default connect(
+  null,
+  {}
+)(MemoComponent);

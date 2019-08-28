@@ -42,7 +42,7 @@ function Builder({rows = [[]], formState = {}}) {
     const [state, setstate] = useState(tempFormState);
     
     return (
-        <div>
+        <div style={{width:"100%"}} >
             <Context.FormContext.Provider value={setstate} >
                 <Context.FormState.Provider value={state} >
                     {rows.map((co, index) => {
